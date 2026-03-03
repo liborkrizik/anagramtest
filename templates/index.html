@@ -1,0 +1,276 @@
+<!doctype html>
+<html lang="en-us">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>🔥💣Liborova Krížikova Anagramová Appka💣🔥</title>
+
+<link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}">
+<meta name="theme-color" content="#181a1b">
+
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="apple-touch-icon" href="{{ url_for('static', filename='icon-192.png') }}">
+
+<meta property="og:image" content="{{ url_for('static', filename='anagramapp.webp', _external=True) }}">
+<meta property="og:title" content="Anagram App by Libor Krížik">
+<meta property="og:description" content="Try clever anagram combinations instantly — now on liborkrizik.com and liborkrizik.eu domains.">
+<meta property="og:image" content="{{ url_for('static', filename='anagramapp.webp', _external=True) }}">
+<meta property="og:url" content="{{ request.url }}">
+<meta property="og:type" content="website">
+
+<!-- Twitter/X Card Meta -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Anagram App by Libor Krížik">
+<meta name="twitter:description" content="Try clever anagram combinations instantly — now on liborkrizik.com and liborkrizik.eu domains.">
+<meta name="twitter:image" content="{{ url_for('static', filename='anagramapp.webp', _external=True) }}">
+<meta name="twitter:url" content="{{ request.url }}">
+<meta name="twitter:site" content="@liborkrizik"> <!-- Optional if you have a Twitter handle -->
+
+
+    <!-- Favicon for bookmarks -->
+<!-- Basic favicon -->
+<link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon-96x96.png') }}">
+
+<!-- ICO fallback -->
+<link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+
+<!-- SVG (modern browsers) -->
+<link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='favicon.svg') }}">
+
+<!-- Apple devices -->
+<link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename='apple-touch-icon.png') }}">
+
+<!-- Android -->
+<link rel="manifest" href="{{ url_for('static', filename='site.webmanifest') }}">
+
+</head>
+<body>
+<font face="Arial,Helvetica" size="-1">
+
+<div class="logo-container" style="margin-bottom: 20px;">
+    <a href="https://www.liborkrizik.com" target="_blank">
+        <img src="{{ url_for('static', filename='images/lklogo.png') }}"
+             alt="Libor Krizik Logo"
+             style="max-width: 100%; height: auto; max-height: 200px;">
+    </a>
+</div>
+
+    <h2>⭐️ Libor Krížik´s Iterative Anagram App ⭐️</h2>
+    <i>Decode multi-word anagrams word by word</i>
+    <i>⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀</i>
+    <p style="margin-top: +1px;"></p> <!-- This adds space -->
+<i>Medzery ani punkciácia - bodky, čiarky anagramy neovplyvňuje,</i><br>
+<i>diakritika však nesmie byť používaná, nakoľko funguje len angličtina.</i><br>
+<i>⚡️ Doba čakania na anagramy = 0 sekúnd. ⚡️</i>
+    <!-- Dark Mode Toggle -->
+<label class="dark-mode-toggle">
+    <span class="sun">🌞</span>
+    <label class="switch">
+        <input type="checkbox" id="darkModeSwitch" />
+        <span class="slider"></span>
+    </label>
+    <span class="moon">🌙</span>
+</label>
+   <style>
+        /* Logo hover effect to increase size */
+        .logo-container img {
+            transition: transform 0.3s ease;
+        }
+
+        .logo-container img:hover {
+            transform: scale(1.1); /* Increase size by 10% */
+        }
+/* iOS-style Dark Mode Toggle */
+.dark-mode-toggle {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.dark-mode-toggle .sun,
+.dark-mode-toggle .moon {
+    font-size: 18px;
+    margin-right: 8px;
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 24px;
+    margin-right: 8px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: 0.4s;
+    border-radius: 34px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 16px;
+    width: 16px;
+    border-radius: 50%;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: 0.4s;
+}
+
+/* When the checkbox is checked */
+input:checked + .slider {
+    background-color: #4CAF50;
+}
+
+input:checked + .slider:before {
+    transform: translateX(26px);
+}
+
+/* Add some hover effects */
+.switch:hover .slider {
+    background-color: #6bbf7e;
+}
+
+
+
+
+        body {
+            font-family: Arial, Helvetica;
+        }
+
+        form {
+            margin-top: 32px;
+            border-collapse: separate;
+            text-indent: initial;
+            white-space: normal;
+            line-height: normal;
+            font-weight: normal;
+            font-size: medium;
+            font-style: normal;
+            text-align: start;
+            border-spacing: 2px;
+            font-variant: normal;
+        }
+
+        b {
+            margin: 0 3px;
+        }
+
+        a {
+            font-family: Courier, Courier New;
+        }
+
+        h2 {
+            font-size: 1.5em;
+        }
+
+        .anagram-list {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            width: 1300px;
+        }
+
+        .anagram-word {
+            margin-right: 100px;
+            width: 50px;
+            line-height: 1.5;
+        }
+        h4 {
+            margin: 30px 0;
+        }
+    </style>
+
+
+    <form name="restart" action="/anagram" method="post">
+        <b>Words to anagram:</b><input size="50" name="letters" type="TEXT" value="">
+        <input type="submit" value="Anagram"> <span></span>
+    </form>
+    <h4>{{ clear }} Letters left. {{ anag_arr }} words in '{{ ttt }}':</h4>
+</font>
+
+
+<div class="anagram-list">
+    {% for i in zomb %}
+        <div class="anagram-word"><a href="#"> {{ i }} </a></div>
+    {% endfor %}
+
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const darkModeSwitch = document.getElementById("darkModeSwitch");
+
+    function loadDarkReader(callback) {
+        if (typeof DarkReader !== "undefined") {
+            return callback();
+        }
+        const script = document.createElement("script");
+        script.src = "/static/js/darkreader.min.js";
+        script.onload = callback;
+        document.head.appendChild(script);
+    }
+
+    function enableDarkMode() {
+        loadDarkReader(() => {
+            DarkReader.enable({ brightness: 90, contrast: 100, sepia: 5 });
+            localStorage.setItem("darkMode", "enabled");
+            darkModeSwitch.checked = true;
+
+            // Optional repaint fix
+            const header = document.querySelector("#site-header, header, .site-header, .top-bar");
+            if (header) {
+                header.style.display = "none";
+                void header.offsetHeight;
+                header.style.display = "";
+            }
+        });
+    }
+
+    function disableDarkMode() {
+        if (typeof DarkReader !== "undefined") {
+            DarkReader.disable();
+        }
+        localStorage.setItem("darkMode", "disabled");
+        darkModeSwitch.checked = false;
+    }
+
+    // Do NOT enable on load — wait for user interaction
+    if (localStorage.getItem("darkMode") === "enabled") {
+        enableDarkMode();
+    }
+
+    darkModeSwitch.addEventListener("change", function() {
+        if (this.checked) {
+            enableDarkMode();
+        } else {
+            disableDarkMode();
+        }
+    });
+});
+</script>
+<script>
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js')
+    .then(() => console.log("Service Worker Registered"));
+}
+</script>
+</body>
+</html>
