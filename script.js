@@ -10,10 +10,10 @@ document.addEventListener("DOMContentLoaded", async function () {
 const response = await fetch("/static/dictionary.txt");
 const text = await response.text();
 
-/* Python-like line-by-line split */
+/* safer universal line split */
 dictionary = text
-    .split("\n")
-    .map(word => word.replace("\r", "").trim())
+    .split(/\r?\n/)
+    .map(word => word.trim())
     .filter(word => word.length > 0);
 
     function frequency(word) {
