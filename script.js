@@ -7,9 +7,14 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     let dictionary = [];
 
-    const response = await fetch("/static/dictionary.txt");
-    const text = await response.text();
-    dictionary = text.split(/\s+/);
+const response = await fetch("/static/dictionary.txt");
+const text = await response.text();
+
+/* Python-like line-by-line split */
+dictionary = text
+    .split("\n")
+    .map(word => word.replace("\r", "").trim())
+    .filter(word => word.length > 0);
 
     function frequency(word) {
         const freq = new Array(26).fill(0);
@@ -49,14 +54,19 @@ document.addEventListener("DOMContentLoaded", async function () {
         }
 
         /* EXACT Python-style sort */
-        matches.sort(function (a, b) {
-            if (a.length !== b.length) {
-                return a.length - b.length;
-            }
-            if (a < b) return -1;
-            if (a > b) return 1;
-            return 0;
-        });
+matches.sort(function (a, b) {
+
+    if (a.length !== b.length) {
+        return a.length - b.length;
+    }
+
+    for (let i = 0; i < Math.min(a.length, b.length); i++) {
+        const diff = a.charCodeAt(i) - b.charCodeAt(i);
+        if (diff !== 0) return diff;
+    }
+
+    return a.length - b.length;
+});
 
         results.innerHTML = "";
 
